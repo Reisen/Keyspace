@@ -1,0 +1,27 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Random assorted files that shouldn't be tracked.
+~*
+*.zip
+*.tar.*
+tags
+ctags
+*.swp
+
+# Project Specific
+build/
+keyspace

@@ -1,0 +1,27 @@
+# Define flags and options.
+CXX      := i686-w64-mingw32-g++
+LDFLAGS  := -L. -Isrc/ -lnettle -Iinclude/
+CPPFLAGS :=
+CXXFLAGS := $(LDFLAGS) -std=gnu++0x -Wall -Werror
+
+MODULES  := types
+SRC_DIR  := src/ $(addprefix src/, $(MODULES))
+SRC_FLS  := $(foreach dir, $(SRC_DIR), $(wildcard $(dir)/*.cpp))
+SRC_OBJ  := $(addprefix build/, $(patsubst %.cpp, %.o, $(notdir $(SRC_FLS))))
+
+# Define VPATH for C++ files only.
+vpath %.cpp $(SRC_DIR)
+
+# Build main executable
+keyspace.exe: $(SRC_OBJ)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) $(SRC_OBJ) -o keyspace.exe
+
+# Build all object files.
+build/%.o: %.cpp
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
+
+# Maintenance rules
+.PHONY: clean
+
+clean:
+	rm build/* main
